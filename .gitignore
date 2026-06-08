@@ -1,0 +1,9 @@
+*.tfvars
+*.tfstate
+*.tfstate.*
+.terraform/
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+trust-policy.json

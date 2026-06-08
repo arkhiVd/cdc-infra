@@ -1,0 +1,29 @@
+output "vpc_id" {
+  description = "Default VPC ID"
+  value       = module.networking.vpc_id
+}
+
+output "subnet_ids" {
+  description = "Subnet IDs in default VPC"
+  value       = module.networking.subnet_ids
+}
+
+output "lab_security_group_id" {
+  description = "Lab security group (self-referencing)"
+  value       = module.networking.lab_security_group_id
+}
+
+output "s3_endpoint_id" {
+  description = "S3 gateway endpoint ID"
+  value       = module.networking.s3_endpoint_id
+}
+
+output "msk_connect_role_arn" {
+  description = "MSK Connect service execution role ARN"
+  value       = module.iam.msk_connect_role_arn
+}
+
+output "rds_endpoint" {
+  description = "RDS endpoint hostname"
+  value       = module.rds.endpoint
+}
