@@ -2,6 +2,7 @@ module "networking" {
   source       = "./modules/networking"
   project_name = var.project_name
   region       = var.region
+  my_ip_cidr   = var.my_ip_cidr
 }
 
 module "iam" {

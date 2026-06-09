@@ -1,2 +1,7 @@
 # Copy to terraform.tfvars and fill in. terraform.tfvars is gitignored.
 db_password = "change-me-strong-password"
+
+# Your home IP in CIDR for direct psql/kafka access from laptop.
+# Get it with: curl -s https://checkip.amazonaws.com
+# Leave empty ("") for no laptop access (bastion-only).
+my_ip_cidr = "1.2.3.4/32"

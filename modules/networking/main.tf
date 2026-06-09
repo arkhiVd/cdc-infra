@@ -51,6 +51,30 @@ resource "aws_security_group_rule" "egress" {
   description       = "All outbound"
 }
 
+# Optional laptop access - psql (5432) + kafka (9092) from your home IP.
+# Only created when my_ip_cidr is set.
+resource "aws_security_group_rule" "laptop_postgres" {
+  count             = var.my_ip_cidr == "" ? 0 : 1
+  type              = "ingress"
+  from_port         = 5432
+  to_port           = 5432
+  protocol          = "tcp"
+  cidr_blocks       = [var.my_ip_cidr]
+  security_group_id = aws_security_group.lab.id
+  description       = "psql from laptop"
+}
+
+resource "aws_security_group_rule" "laptop_kafka" {
+  count             = var.my_ip_cidr == "" ? 0 : 1
+  type              = "ingress"
+  from_port         = 9092
+  to_port           = 9092
+  protocol          = "tcp"
+  cidr_blocks       = [var.my_ip_cidr]
+  security_group_id = aws_security_group.lab.id
+  description       = "kafka plaintext from laptop"
+}
+
 # S3 Gateway Endpoint - free, routes S3 traffic internally.
 # MSK Connect uses this to pull the Debezium plugin without NAT/internet.
 resource "aws_vpc_endpoint" "s3" {

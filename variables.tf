@@ -15,3 +15,9 @@ variable "db_password" {
   type        = string
   sensitive   = true
 }
+
+variable "my_ip_cidr" {
+  description = "Home IP CIDR for laptop access to RDS/Kafka (set in terraform.tfvars)"
+  type        = string
+  default     = ""
+}
