@@ -17,3 +17,10 @@ module "rds" {
   security_group_id = module.networking.lab_security_group_id
   db_password       = var.db_password
 }
+
+module "msk" {
+  source            = "./modules/msk"
+  project_name      = var.project_name
+  subnet_ids        = module.networking.subnet_ids
+  security_group_id = module.networking.lab_security_group_id
+}

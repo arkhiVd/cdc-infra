@@ -27,3 +27,12 @@ output "rds_endpoint" {
   description = "RDS endpoint hostname"
   value       = module.rds.endpoint
 }
+
+output "msk_bootstrap_brokers" {
+  description = "MSK plaintext bootstrap brokers (port 9092)"
+  value       = module.msk.bootstrap_brokers_plaintext
+}
+
+output "msk_cluster_arn" {
+  value = module.msk.cluster_arn
+}
