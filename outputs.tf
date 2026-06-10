@@ -36,3 +36,16 @@ output "msk_bootstrap_brokers" {
 output "msk_cluster_arn" {
   value = module.msk.cluster_arn
 }
+
+output "plugin_bucket" {
+  description = "S3 bucket holding the Debezium plugin ZIP"
+  value       = module.msk_connect.plugin_bucket
+}
+
+output "connector_name" {
+  value = module.msk_connect.connector_name
+}
+
+output "connector_arn" {
+  value = module.msk_connect.connector_arn
+}
