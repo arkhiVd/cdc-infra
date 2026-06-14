@@ -6,7 +6,7 @@ Debezium connector running on MSK Connect.
 
 ```
 ┌─────────────┐    WAL     ┌──────────────┐   Kafka topic   ┌─────────────┐
-│  RDS        │──────────▶│  Debezium    │────────────────▶│  Consumer   │
+│  RDS        │──────────▶ │  Debezium    │────────────────▶│  Consumer   │
 │  PostgreSQL │  (stream)  │  (MSK        │  rds.public.*   │  (any app)  │
 │             │            │   Connect)   │                 │             │
 └─────────────┘            └──────────────┘                 └─────────────┘
