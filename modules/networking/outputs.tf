@@ -1,9 +1,9 @@
 output "vpc_id" {
-  value = data.aws_vpc.default.id
+  value = aws_vpc.main.id
 }
 
 output "subnet_ids" {
-  value = data.aws_subnets.default.ids
+  value = aws_subnet.public[*].id
 }
 
 output "lab_security_group_id" {
@@ -15,5 +15,5 @@ output "s3_endpoint_id" {
 }
 
 output "route_table_ids" {
-  value = data.aws_route_tables.default.ids
+  value = [aws_route_table.public.id]
 }

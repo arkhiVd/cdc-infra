@@ -10,6 +10,12 @@ variable "project_name" {
   default     = "lab"
 }
 
+variable "vpc_cidr" {
+  description = "CIDR block for the dedicated CDC VPC"
+  type        = string
+  default     = "10.20.0.0/16"
+}
+
 variable "db_password" {
   description = "RDS master password (set in terraform.tfvars)"
   type        = string

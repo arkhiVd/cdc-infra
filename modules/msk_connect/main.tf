@@ -85,27 +85,27 @@ resource "aws_mskconnect_connector" "debezium" {
   }
 
   connector_configuration = {
-    "connector.class"              = "io.debezium.connector.postgresql.PostgresConnector"
-    "tasks.max"                    = "1"
-    "database.hostname"            = var.db_host
-    "database.port"                = tostring(var.db_port)
-    "database.user"                = var.db_user
-    "database.password"            = var.db_password
-    "database.dbname"              = var.db_name
-    "topic.prefix"                 = var.topic_prefix
-    "plugin.name"                  = "pgoutput"
-    "table.include.list"           = var.table_include_list
-    "slot.name"                    = "debezium"
-    "publication.autocreate.mode"  = "filtered"
-    "key.converter"                = "org.apache.kafka.connect.json.JsonConverter"
-    "value.converter"              = "org.apache.kafka.connect.json.JsonConverter"
-    "key.converter.schemas.enable" = "false"
+    "connector.class"                = "io.debezium.connector.postgresql.PostgresConnector"
+    "tasks.max"                      = "1"
+    "database.hostname"              = var.db_host
+    "database.port"                  = tostring(var.db_port)
+    "database.user"                  = var.db_user
+    "database.password"              = var.db_password
+    "database.dbname"                = var.db_name
+    "topic.prefix"                   = var.topic_prefix
+    "plugin.name"                    = "pgoutput"
+    "table.include.list"             = var.table_include_list
+    "slot.name"                      = "debezium"
+    "publication.autocreate.mode"    = "filtered"
+    "key.converter"                  = "org.apache.kafka.connect.json.JsonConverter"
+    "value.converter"                = "org.apache.kafka.connect.json.JsonConverter"
+    "key.converter.schemas.enable"   = "false"
     "value.converter.schemas.enable" = "false"
 
     # Debezium self-creates topics (KIP-158). MSK broker has
     # auto.create.topics.enable=false, so without this the producer hits
     # UNKNOWN_TOPIC_OR_PARTITION. Replication factor must be <= broker count.
-    "topic.creation.enable"                    = "true"
+    "topic.creation.enable"                     = "true"
     "topic.creation.default.replication.factor" = "2"
     "topic.creation.default.partitions"         = "1"
     "topic.creation.default.cleanup.policy"     = "delete"

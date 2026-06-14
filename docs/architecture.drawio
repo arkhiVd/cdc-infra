@@ -1,0 +1,115 @@
+<mxfile host="app.diagrams.net" agent="cdc-infra" version="24.0.0">
+  <diagram name="CDC RDS-MSK-Debezium" id="cdc-arch-1">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title" value="CDC Pipeline — RDS PostgreSQL → Amazon MSK → Debezium (MSK Connect)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="160" y="20" width="900" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" value="Account 486539985928 · us-east-1 · Terraform IaC · PLAINTEXT lab (port 9092)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#5A6B7B;" vertex="1" parent="1">
+          <mxGeometry x="160" y="48" width="900" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Developer laptop (outside cloud) -->
+        <mxCell id="dev" value="Developer&#10;(Arch Linux)" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#232F3E;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.user;" vertex="1" parent="1">
+          <mxGeometry x="40" y="430" width="48" height="48" as="geometry" />
+        </mxCell>
+
+        <!-- AWS Cloud group -->
+        <mxCell id="cloud" value="AWS Cloud" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=12;fontStyle=0;container=1;pointerEvents=0;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_aws_cloud_alt;strokeColor=#232F3E;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#232F3E;dashed=0;" vertex="1" parent="1">
+          <mxGeometry x="160" y="90" width="1060" height="760" as="geometry" />
+        </mxCell>
+
+        <!-- Region group -->
+        <mxCell id="region" value="Region: us-east-1" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=12;fontStyle=0;container=1;pointerEvents=0;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_region;strokeColor=#00A4A6;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#00A4A6;dashed=1;" vertex="1" parent="cloud">
+          <mxGeometry x="40" y="50" width="980" height="680" as="geometry" />
+        </mxCell>
+
+        <!-- VPC group -->
+        <mxCell id="vpc" value="Default VPC (data source — never managed)" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=12;fontStyle=0;container=1;pointerEvents=0;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_vpc;strokeColor=#8C4FFF;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#8C4FFF;dashed=0;" vertex="1" parent="region">
+          <mxGeometry x="30" y="50" width="640" height="600" as="geometry" />
+        </mxCell>
+
+        <!-- Public Subnet A -->
+        <mxCell id="subnetA" value="Public Subnet — us-east-1a" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=0;container=1;pointerEvents=0;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_public_subnet;strokeColor=#7AA116;fillColor=#F2F6E8;verticalAlign=top;align=left;spacingLeft=30;fontColor=#248814;dashed=0;" vertex="1" parent="vpc">
+          <mxGeometry x="30" y="50" width="580" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="rds" value="Amazon RDS&#10;PostgreSQL 18&#10;wal_level=logical" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=#4D72F3;gradientDirection=north;fillColor=#3334B9;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.rds;" vertex="1" parent="subnetA">
+          <mxGeometry x="60" y="60" width="48" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="vpce" value="S3 Gateway&#10;Endpoint (free)" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.gateway;" vertex="1" parent="subnetA">
+          <mxGeometry x="430" y="60" width="48" height="48" as="geometry" />
+        </mxCell>
+
+        <!-- Public Subnet B -->
+        <mxCell id="subnetB" value="Public Subnet — us-east-1b" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=0;container=1;pointerEvents=0;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_public_subnet;strokeColor=#7AA116;fillColor=#F2F6E8;verticalAlign=top;align=left;spacingLeft=30;fontColor=#248814;dashed=0;" vertex="1" parent="vpc">
+          <mxGeometry x="30" y="270" width="580" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="msk" value="Amazon MSK&#10;2x kafka.t3.small&#10;PLAINTEXT :9092" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=#945DF2;gradientDirection=north;fillColor=#5A30B5;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.managed_streaming_for_apache_kafka;" vertex="1" parent="subnetB">
+          <mxGeometry x="60" y="80" width="48" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="connect" value="MSK Connect&#10;Debezium 2.7.4&#10;(1 MCU / 1 worker)" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=#945DF2;gradientDirection=north;fillColor=#5A30B5;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.managed_streaming_for_apache_kafka;" vertex="1" parent="subnetB">
+          <mxGeometry x="350" y="80" width="48" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="topic" value="topic: rds.public.users&#10;(op=r/c/u/d + tombstone)" style="text;html=1;strokeColor=#7AA116;fillColor=#ffffff;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=9;fontColor=#248814;dashed=1;" vertex="1" parent="subnetB">
+          <mxGeometry x="30" y="200" width="180" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- SG note -->
+        <mxCell id="sgnote" value="Security Group (self-referencing + laptop /32)&#10;intra-SG: all traffic · laptop: 5432, 9092" style="text;html=1;strokeColor=#DD3522;fillColor=#FDECEA;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=9;fontColor=#B0301C;dashed=1;" vertex="1" parent="vpc">
+          <mxGeometry x="240" y="60" width="270" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- S3 bucket (region, outside VPC) -->
+        <mxCell id="s3" value="Amazon S3&#10;lab-msk-plugins-...&#10;Debezium plugin ZIP" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=#60A337;gradientDirection=north;fillColor=#277116;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.s3;" vertex="1" parent="region">
+          <mxGeometry x="760" y="90" width="48" height="48" as="geometry" />
+        </mxCell>
+        <!-- CloudWatch -->
+        <mxCell id="cw" value="CloudWatch Logs&#10;/msk-connect/lab-debezium" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=#F34482;gradientDirection=north;fillColor=#BC1356;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudwatch;" vertex="1" parent="region">
+          <mxGeometry x="760" y="290" width="48" height="48" as="geometry" />
+        </mxCell>
+        <!-- IAM role -->
+        <mxCell id="iam" value="IAM Role&#10;lab-MSKConnectRole&#10;(scoped S3 + logs)" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=#F54749;gradientDirection=north;fillColor=#BC1356;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.identity_and_access_management;" vertex="1" parent="region">
+          <mxGeometry x="760" y="480" width="48" height="48" as="geometry" />
+        </mxCell>
+
+        <!-- ===================== EDGES ===================== -->
+        <!-- laptop -> RDS -->
+        <mxCell id="e1" value="psql :5432 (publicly_accessible)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=10;strokeColor=#232F3E;strokeWidth=2;endArrow=block;" edge="1" parent="1" source="dev" target="rds">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- RDS -> MSK Connect (WAL) -->
+        <mxCell id="e2" value="WAL via logical decoding (pgoutput) → replication slot 'debezium'" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=10;strokeColor=#3334B9;strokeWidth=2;endArrow=block;" edge="1" parent="1" source="rds" target="connect">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- MSK Connect -> MSK (produce) -->
+        <mxCell id="e3" value="produce CDC JSON → topic rds.public.users" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=10;strokeColor=#5A30B5;strokeWidth=2;endArrow=block;" edge="1" parent="1" source="connect" target="msk">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- MSK Connect -> VPC endpoint -> S3 (pull plugin) -->
+        <mxCell id="e4" value="pull plugin" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=10;strokeColor=#8C4FFF;strokeWidth=2;endArrow=block;dashed=1;" edge="1" parent="1" source="connect" target="vpce">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" value="Debezium ZIP (no NAT/internet)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=10;strokeColor=#60A337;strokeWidth=2;endArrow=block;dashed=1;" edge="1" parent="1" source="vpce" target="s3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- MSK Connect -> CloudWatch -->
+        <mxCell id="e6" value="worker logs" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=10;strokeColor=#BC1356;strokeWidth=1;endArrow=block;dashed=1;" edge="1" parent="1" source="connect" target="cw">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- IAM -> MSK Connect -->
+        <mxCell id="e7" value="assumed by (service execution role)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=10;strokeColor=#BC1356;strokeWidth=1;endArrow=open;dashed=1;" edge="1" parent="1" source="iam" target="connect">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Legend -->
+        <mxCell id="legend" value="Flow:  ① developer seeds/queries RDS over psql   ② Debezium reads WAL   ③ events land in Kafka topic   ④–⑤ plugin pulled from S3 via gateway endpoint   ⑥ logs to CloudWatch   ⑦ IAM role authorizes connector" style="text;html=1;strokeColor=#CED4DA;fillColor=#F8F9FA;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=10;fontColor=#5A6B7B;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="160" y="858" width="1060" height="34" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
